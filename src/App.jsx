@@ -5,6 +5,8 @@ function App() {
   return (
     <>
       <Button>hlw woruld</Button>
+      <Button>hlw woruld</Button>
+      <Button>hlw woruld</Button>
     </>
   );
 }
