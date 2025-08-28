@@ -1,44 +1,81 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Button } from "@/components/ui/button";
 import AuthLayout from "./components/auth/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
 import AdminLayout from "./components/admin-view/layout";
-import AdminDashbord from "./pages/admin-view/Dashbord";
 import Products from "./pages/admin-view/Products";
 import Orders from "./pages/admin-view/Orders";
 import Features from "./pages/admin-view/Features";
 import ShoppingLayout from "./pages/shopping-view/layout";
 import ShoppingHome from "./pages/shopping-view/home";
 import ShoppingListing from "./pages/shopping-view/listing";
-import ChackOutPage from "./pages/shopping-view/checkout";
-import ShoppingAccout from "./pages/shopping-view/account";
+import CheckoutPage from "./pages/shopping-view/checkout";
+import ShoppingAccount from "./pages/shopping-view/account";
+import UnAuthPage from "./pages/unauth-page";
+import AdminDashbord from "./pages/admin-view/Dashbord";
+import NotFoundPage from "./pages/not-found/not-found";
+import CheckAuth from './components/common/chack-auth';
 
 function App() {
+  const isAuthenticated = true; // try false করে দেখো
+  const user = {
+    id: "123",
+    name: "John Doe",
+    role: "admin", // try "user"
+  };
+
   return (
     <>
       <Routes>
-        {/* Parent Layout */}
-        <Route path="/auth" element={<AuthLayout />}>
-          {/* Child Routes */}
+        {/* AUTH ROUTES */}
+        <Route
+          path="/auth"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <AuthLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="login" element={<AuthLogin />} />
           <Route path="register" element={<AuthRegister />} />
         </Route>
 
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="dashbord" element={<AdminDashbord />} />
+        {/* ADMIN ROUTES */}
+        <Route
+          path="/admin"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <AdminLayout />
+            </CheckAuth>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashbord />} />
           <Route path="products" element={<Products />} />
           <Route path="orders" element={<Orders />} />
           <Route path="features" element={<Features />} />
         </Route>
-        <Route path="/shop" element={<ShoppingLayout />}>
+
+        {/* SHOPPING ROUTES */}
+        <Route
+          path="/shop"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <ShoppingLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="home" element={<ShoppingHome />} />
           <Route path="listing" element={<ShoppingListing />} />
-          <Route path="checkout" element={<ChackOutPage />} />
-          <Route path="account" element={<ShoppingAccout />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="account" element={<ShoppingAccount />} />
         </Route>
-        <Route path="*" />
+
+        {/* UnAuth Page */}
+        <Route path="/unauth-page" element={<UnAuthPage />} />
+
+        {/* Catch all → Not Found */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
