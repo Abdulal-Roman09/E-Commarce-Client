@@ -4,9 +4,9 @@ import { Outlet, Link } from "react-router-dom";
 const AuthLayout = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-orange-100 to-pink-100 p-4">
-      <div className="bg-white shadow-2xl rounded-2xl w-full max-w-4xl grid md:grid-cols-2">
+      <div className="bg-white shadow-2xl rounded-2xl w-full max-w-5xl grid md:grid-cols-2">
         {/* Left Side (Brand / Welcome Text) */}
-        <div className="hidden md:flex flex-col items-center justify-center bg-indigo-600 text-white rounded-l-2xl p-10">
+        <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-b from-indigo-950 via-blue-600 to-blue-950  text-white rounded-l-2xl p-10">
           <h1 className="text-3xl font-bold mb-4">Welcome Back!</h1>
           <p className="text-center text-lg">
             Please login with your personal info or create a new account to get

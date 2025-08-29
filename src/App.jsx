@@ -73,7 +73,6 @@ function App() {
         {/* Catch all → Not Found */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      this is home
     </>
   );
 }
