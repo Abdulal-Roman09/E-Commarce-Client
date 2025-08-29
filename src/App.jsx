@@ -15,15 +15,11 @@ import ShoppingAccount from "./pages/shopping-view/account";
 import UnAuthPage from "./pages/unauth-page";
 import AdminDashbord from "./pages/admin-view/Dashbord";
 import NotFoundPage from "./pages/not-found/not-found";
-import CheckAuth from './components/common/chack-auth';
+import CheckAuth from "./components/common/chack-auth";
 
 function App() {
-  const isAuthenticated = true; // try false করে দেখো
-  const user = {
-    id: "123",
-    name: "John Doe",
-    role: "admin", // try "user"
-  };
+  const isAuthenticated = false;
+  const user = null;
 
   return (
     <>
@@ -77,6 +73,7 @@ function App() {
         {/* Catch all → Not Found */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      this is home
     </>
   );
 }
