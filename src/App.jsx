@@ -16,10 +16,10 @@ import UnAuthPage from "./pages/unauth-page";
 import AdminDashbord from "./pages/admin-view/Dashbord";
 import NotFoundPage from "./pages/not-found/not-found";
 import CheckAuth from "./components/common/chack-auth";
+import { useSelector } from "react-redux";
 
 function App() {
-  const isAuthenticated = false;
-  const user = null;
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <>

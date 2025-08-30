@@ -1,7 +1,10 @@
 import CommonForm from "@/components/common/commonform";
 import { loginFormControls } from "@/config";
+import { loginUser } from "@/store/auth-slice";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -10,11 +13,21 @@ const initialState = {
 
 const AuthLogin = () => {
   const [formData, setFormData] = useState(initialState);
+  const disPatch = useDispatch();
+  const navigate = useNavigate();
 
   function onSubmit(e) {
     e.preventDefault();
     console.log("Login data:", formData);
-    // এখানে backend/login dispatch call করতে পারো
+    disPatch(loginUser(formData)).then((data) => {
+      console.log(data);
+      if (data?.payload?.success) {
+        toast.success("login successfully");
+        navigate("/shop");
+      } else {
+        toast.error(data?.payload?.message);
+      }
+    });
   }
 
   return (
