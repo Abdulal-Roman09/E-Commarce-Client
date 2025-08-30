@@ -1,7 +1,10 @@
 import CommonForm from "@/components/common/commonform";
 import { registerFormControls } from "@/config";
+import { registerUser } from "@/store/auth-slice";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialState = {
   userName: "",
@@ -11,11 +14,19 @@ const initialState = {
 
 const AuthRegister = () => {
   const [formData, setFormData] = useState(initialState);
+  const disPatch = useDispatch();
+  const navigate = useNavigate();
 
   function onSubmit(e) {
     e.preventDefault();
     console.log("Form submitted data:", formData);
-    // এখানে backend/register dispatch call করতে পারো
+    disPatch(registerUser(formData)).then((data) => {
+      console.log(data);
+      if (data?.payload?.success) {
+        toast.success("Registetion successfully")
+        navigate("/auth/login");
+      }
+    });
   }
 
   return (
