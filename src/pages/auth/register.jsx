@@ -23,8 +23,10 @@ const AuthRegister = () => {
     disPatch(registerUser(formData)).then((data) => {
       console.log(data);
       if (data?.payload?.success) {
-        toast.success("Registetion successfully")
+        toast.success("Registetion successfully");
         navigate("/auth/login");
+      } else {
+        toast.error(data?.payload?.message);
       }
     });
   }
