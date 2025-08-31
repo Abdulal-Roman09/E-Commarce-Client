@@ -13,17 +13,18 @@ const initialState = {
 
 const AuthLogin = () => {
   const [formData, setFormData] = useState(initialState);
-  const disPatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function onSubmit(e) {
     e.preventDefault();
     console.log("Login data:", formData);
-    disPatch(loginUser(formData)).then((data) => {
+
+    dispatch(loginUser(formData)).then((data) => {
       console.log(data);
       if (data?.payload?.success) {
-        toast.success("login successfully");
-        navigate("/shop");
+        toast.success("Login successfully");
+        navigate("/shop/home");
       } else {
         toast.error(data?.payload?.message);
       }
@@ -49,7 +50,7 @@ const AuthLogin = () => {
 
       <CommonForm
         formControls={loginFormControls}
-        buttonText={"Login"}
+        buttonText="Login"
         formData={formData}
         setFormData={setFormData}
         onSubmit={onSubmit}
