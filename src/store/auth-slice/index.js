@@ -42,6 +42,16 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+// LOGOUT USER
+export const logOutUser = createAsyncThunk("/auth/logout", async () => {
+  const response = await axios.post(
+    "http://localhost:8000/api/auth/login",
+    {},
+
+    { withCredentials: true }
+  );
+  return response.data;
+});
 
 const authSlice = createSlice({
   name: "auth",
