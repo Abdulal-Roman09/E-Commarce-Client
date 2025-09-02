@@ -19,7 +19,7 @@ export const registerUser = createAsyncThunk(
         formData,
         { withCredentials: true }
       );
-      return response.data; // { success, message, user }
+      return response.data; 
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
     }
@@ -36,7 +36,7 @@ export const loginUser = createAsyncThunk(
         formData,
         { withCredentials: true }
       );
-      return response.data; // { success, token, user }
+      return response.data; 
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
     }
