@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+  
 
   return (
     <>

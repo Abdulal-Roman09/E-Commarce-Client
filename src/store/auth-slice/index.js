@@ -15,11 +15,11 @@ export const registerUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/register",
+        "http://localhost:3000/api/auth/register",
         formData,
         { withCredentials: true }
       );
-      return response.data; // { success, message, user }
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
     }
@@ -73,44 +73,33 @@ const authSlice = createSlice({
       // REGISTER
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
-        state.message = null;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user || null;
-        state.isAuthenticated = action.payload.success || false;
-        state.message = action.payload.message || "Registration successful";
-      })
-      .addCase(registerUser.rejected, (state, action) => {
+      .addCase(registerUser.fulfilled, (state) => {
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;
-        state.error = action.payload;
+      })
+      .addCase(registerUser.rejected, (state) => {
+        state.isLoading = false;
+        state.user = null;
+        state.isAuthenticated = false;
       })
 
       // LOGIN
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
-        state.message = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user || null;
-        state.isAuthenticated = action.payload.success || false;
-        state.message = action.payload.message || "Login successful";
+        console.log(action);
 
-        // Optional: token localStorage এ save করা যায়
-        if (action.payload.token) {
-          localStorage.setItem("token", action.payload.token);
-        }
+        state.isLoading = false;
+        state.user = action.payload.success ? action.payload.user : null;
+        state.isAuthenticated = action.payload.success;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state) => {
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;
-        state.error = action.payload;
       });
   },
 });
